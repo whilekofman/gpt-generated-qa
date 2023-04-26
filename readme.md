@@ -1,13 +1,17 @@
 
 # Overview Of App Functionality
-This is a simple react app that allows users to ask, and answer questions and toggle the status of the question between answered and unanswered. The app is initialized with vite and built using React and TypeScript.  The app does not have a backend and does not utulize local storage so will not store content between sessions or browser refreshes. There is one important caviet: 
+This is a simple react app that allows users to ask, and answer questions and toggle the status of the question between answered and unanswered. The app is initialized with vite and built using React and TypeScript.  The app does not have a backend and does not utilize local storage so will not store content between sessions or browser refreshes. There is one important caveat:
 
 ## This application was built entirely by prompting ChatGpt
-Having used chatgpt in the past to help debug issues I was having with my code, I wanted to see how capable it was in building a simple application from scratch.  I did not want to interfere or debug, in order to see how capable the LLM was, so anytime an error was encountered I prompted GPT with error messages, which it was quickly able to resolve. The first three prompts were suggested by Mark Rodriguez 
+Having used chatgpt in the past to help debug issues I was having with my code, I wanted to see how capable it was in building a simple application from scratch.  I did not want to interfere or debug, in order to see how capable the LLM was, so anytime an error was encountered I prompted GPT with error messages, which it was quickly able to resolve. I also did not focus on styling as I just wanted to focus on functionality. The first three prompts were suggested by Mark Rodriguez.
+
+### What the application looks like
+
+![Screenshot](src/assets/screenshot.png "Screenshot")
 
 ## The following is a transcript of the conversation with ChatGpt PROMPTS:
 
-eugene kofman
+eugene kofman:  
 i’d like to create a react application using typescript that does the following:
 1. allow anyone to ask a question and attach their name to that question.
 2. generate a list of all questions asked
@@ -55,7 +59,7 @@ This hierarchy represents the structure of the components that would be needed t
 
 
 
-eugene kofman  
+eugene kofman:  
 can you flesh out the question form?    
 
 ***
@@ -131,7 +135,7 @@ The parent component (e.g., App) can use this QuestionForm component and pass an
 
 
 
-eugene kofman   
+eugene kofman:   
 How should we get started building this app from scratch? 
 
 ***
@@ -172,7 +176,7 @@ npm run build
 >That's it! You now have a basic outline of the steps to build the React application from scratch. Note that this is a simplified outline, and additional steps may be required depending on your specific requirements and the complexity of the application. Feel free to ask if you have any questions or need further assistance at any step.
 ***
 
-eugene kofman  
+eugene kofman:  
 are there other ways to initialize a react app with type script other than vite and create react app 
 
 ***
@@ -206,7 +210,7 @@ npm install --save gatsby-plugin-typescript @types/react @types/react-dom
 
 ***
 
-eugene kofman  
+eugene kofman:  
 I used vite 
 
 
@@ -230,7 +234,7 @@ I used vite
 
 
 ***
-eugene kofman  
+eugene kofman:  
 fixed the error lets get started building.    
 what should my app.tsx file look like? 
 ***
@@ -302,7 +306,7 @@ Please note that this is a basic implementation of the App component. The actual
 
 
 
-eugene kofman  
+eugene kofman:  
 ok whats the next compnonent we build and what does it look like? 
 
 ***
@@ -376,7 +380,7 @@ The QuestionList component will display a list of submitted questions, and the Q
 ***
 
 
-eugene kofman  
+eugene kofman:  
 what does the next component look like?
 
 >The next component to implement is the QuestionList component. This component will display a list of submitted questions, each represented by a QuestionItem component. The QuestionList component will receive an array of questions as a prop and render a QuestionItem for each question. It will also pass a callback function to each QuestionItem to handle toggling the answered status of the question.
@@ -439,7 +443,7 @@ Next, you'll need to implement the QuestionItem component, which will represent 
 
 
 
-eugene kofman  
+eugene kofman:  
 what does the QuestionItem component look like? 
 ***
 >The QuestionItem component represents an individual question in the list. It displays the question text, the author's name, and provides a toggle button to mark the question as answered or unanswered. The component receives the question data as a prop, along with a callback function to handle toggling the answered status.  
@@ -507,7 +511,7 @@ This QuestionItem component is designed to be rendered within the QuestionList c
 
 
 
-eugene kofman  
+eugene kofman:  
 how would I add a button that would enable people to click a button to give them the ability to answer the question.  The person answering should have a place to enter their name, and the answer and to cancel answering
 *** 
 >To add a button that allows users to answer a question, you can introduce additional state and a new component to handle answering functionality. The new component, which we'll call AnswerForm, will include input fields for the person's name and the answer, as well as buttons to submit the answer or cancel answering. Additionally, we'll update the QuestionItem component to display the answer and the person's name who provided the answer.
@@ -630,7 +634,7 @@ export default QuestionItem;
 
 
 
-eugene kofman  
+eugene kofman:  
 can we make the storage of the answer the same as for the questions
 
 >Yes, we can store the answers in the same state array as the questions, by extending the Question type to include an answers field. The answers field will be an array containing answer objects, each with the name of the person who provided the answer and the answer content. This approach allows each question to have multiple answers.
@@ -706,7 +710,7 @@ Copy code
 
 >If you have any questions or need further assistance, please let me know!
 ***
-eugene kofman  
+eugene kofman:  
 can you show me the entirity of what app.tsx should look like now? 
 ***
 >Certainly! Here's the updated implementation of the src/App.tsx file, based on the new requirements to store answers for each question and allow multiple answers per question:
@@ -798,7 +802,7 @@ This updated implementation allows each question to have multiple answers, and u
 
 ***
 
-eugene kofman  
+eugene kofman:  
 getting this error: 
 ```
 Type '{ questions: Question[]; onToggleAnswered: (id: number) => void; onAnswer: (questionId: number, answer: Answer) => void; }' is not assignable to type 'IntrinsicAttributes & QuestionListProps'.
@@ -849,7 +853,7 @@ export default QuestionList;
 
 ***
 
-eugene kofman  
+eugene kofman:  
 can you show me the entirety of the questionitem component now
 ***
 
@@ -938,7 +942,7 @@ This implementation allows users to provide answers to each question, and the an
 
 
 
-eugene kofman  
+eugene kofman:  
 now I am getting this error in the questionlist component:   
 Property 'onAnswer' is missing in type '{ key: number; question: Question; onToggleAnswered: (id: number) => void; }' but required in type 'QuestionItemProps'.ts(2741)
 
@@ -976,7 +980,7 @@ Copy code
 ***
 
 
-eugene kofman  
+eugene kofman:  
 that did not work either. I reverted the changes you provided in the last answer and this what 
 the component looks like:
 ```typescript
