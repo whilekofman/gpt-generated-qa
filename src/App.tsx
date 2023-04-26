@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import QuestionForm from "./components/QuestionForm";
 import QuestionList from "./components/QuestionList";
 
+type Answer = {
+	name: string;
+	content: string;
+};
+
 type Question = {
 	id: number;
 	author: string;
 	content: string;
 	isAnswered: boolean;
-	answer?: {
-		name: string;
-		content: string;
-	};
+	answers: Answer[];
 };
 
 const App: React.FC = () => {
@@ -23,6 +25,7 @@ const App: React.FC = () => {
 			author,
 			content,
 			isAnswered: false,
+			answers: [],
 		};
 		setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
 	};
@@ -38,6 +41,17 @@ const App: React.FC = () => {
 		);
 	};
 
+	// Add an answer to a question
+	const handleAnswer = (questionId: number, answer: Answer) => {
+		setQuestions((prevQuestions) =>
+			prevQuestions.map((question) =>
+				question.id === questionId
+					? { ...question, answers: [...question.answers, answer] }
+					: question
+			)
+		);
+	};
+
 	return (
 		<div>
 			<h1>Questions & Answers</h1>
@@ -45,6 +59,7 @@ const App: React.FC = () => {
 			<QuestionList
 				questions={questions}
 				onToggleAnswered={toggleAnsweredStatus}
+				onAnswer={handleAnswer}
 			/>
 		</div>
 	);

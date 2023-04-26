@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import AnswerForm from "./AnswerForm";
 
+type Answer = {
+	name: string;
+	content: string;
+};
+
 type Question = {
 	id: number;
 	author: string;
 	content: string;
 	isAnswered: boolean;
+	answers: Answer[];
 };
 
 type QuestionItemProps = {
 	question: Question;
 	onToggleAnswered: (id: number) => void;
+	onAnswer: (questionId: number, answer: Answer) => void;
 };
 
 const QuestionItem: React.FC<QuestionItemProps> = ({
 	question,
 	onToggleAnswered,
+	onAnswer,
 }) => {
 	const [showAnswerForm, setShowAnswerForm] = useState(false);
 
@@ -23,14 +31,10 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
 		onToggleAnswered(question.id);
 	};
 
-	const handleAnswer = (name: string, answer: string) => {
-		// Logic to handle and store the answer
-		// ...
+	const handleAnswer = (name: string, content: string) => {
+		const newAnswer: Answer = { name, content };
+		onAnswer(question.id, newAnswer);
 		setShowAnswerForm(false);
-	};
-
-	const handleToggle = () => {
-		onToggleAnswered(question.id);
 	};
 
 	return (
@@ -56,19 +60,15 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
 					onCancel={() => setShowAnswerForm(false)}
 				/>
 			) : (
-				<>
-					{question.answer ? (
-						<div>
-							<strong>Answered by:</strong> {question.answer.name}
-							<div>{question.answer.content}</div>
-						</div>
-					) : (
-						<button onClick={() => setShowAnswerForm(true)}>
-							Answer
-						</button>
-					)}
-				</>
+				<button onClick={() => setShowAnswerForm(true)}>Answer</button>
 			)}
+			{/* Display existing answers */}
+			{question.answers.map((answer, index) => (
+				<div key={index}>
+					<strong>Answered by:</strong> {answer.name}
+					<div>{answer.content}</div>
+				</div>
+			))}
 		</li>
 	);
 };
